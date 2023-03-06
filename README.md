@@ -27,56 +27,55 @@ After the trajectories are simulated, the vector fields are calculated with a ca
 
 This function, given the current state and the parameters Q,q,r (defined in counter_example.m) for an elliptical obstacle, will compute the optimal input according to the standard CLF-CBF quadratic program approach.  It solves this by expressing the problem as a linearly constrained quadratic program and solving it with CPLEX, which is available with an academic license.  If a different solver is desired (say CVX, for example), the problem in question is constructed as:
 
- minimize 0.5*x'*H*x
- s. t.    Aineq*x <= bineq
-
+```math
+\begin{array}{cl}
+ \underset{x\in\mathbb{R}^n}{\text{minimize}} & \frac{1}{2}x^\top Hx \\
+ \text{subject to} &  \texttt{Aineq}x \leq \texttt{bineq}
+ \end{array}
+```
 and can be input to any QP solver of choice using these variables.
-The function returns the optimal input if only one return variable is given (e.g. x = CLF_CBF_QP(x,Q,q,r)), but has the option to also return corresonding dual variable values and the value of the relaxation variable delta by instead writing:
-[u, lambda, delta] = CLF_CBF_QP(x,Q,q,r).
+The function returns the optimal input if only one return variable is given (e.g. `x = CLF_CBF_QP(x,Q,q,r)`), but has the option to also return corresonding dual variable values and the value of the relaxation variable delta by instead writing:
+`[u, lambda, delta] = CLF_CBF_QP(x,Q,q,r)`.
 
 In this function file, we find the functions for the safety and control lyapunov functions along with their Lie derivatives, which may be altered if desired.
 In particular:
 
--- get_lyapunov_P()
+### `get_lyapunov_P()`
 	This helper function defines the positive definite matrix P for all other lie derivatives of the lyapunov function.  If a modification of V(x) is desired in only this manner, express it here.
 
--- V(x)
+### `V(x)`
 	This computes the value of the lyapunov function at a given point.  By default it computes it as x*P*x', with x a row vector and P being pulled from the helper function defined above.
 
--- LfV(x)
+### `LfV(x)`
 	Computes the lie derivative of V at state x along f.  Will need modified if V(x) or f is changed.
 
--- LgV(x)
+### `LgV(x)`
 	computes the lie derivative of V at state x along g.  Will need modified if V(x) or g is changed.
 
--- h(x,Q,q,r)
+### `h(x,Q,q,r)`
 	Computes the safety function h at state x given elliptical safety border defined with ellipse parameters Q,q, and r.
 
--- Lfh(x,Q,q,r)
+### `Lfh(x,Q,q,r)`
 	Computes lie derivative of safety function h with elliptical parameters Q,q, and r along f.  Will need to be modified if h or f change.
 
--- Lgh(X,q,q,r)
+### `Lgh(X,q,q,r)`
 	Computes lie derivaitve of safety function h with elliptical parameters Q,q, and r along g.  Will need to be modified if h or g change.
 
---gain_alpha and gain_gamma(x)
+### `gain_alpha` and `gain_gamma(x)`
 	Scalar K-infinity functions defining the gain on the constraint coefficients in the quadratic program.
 
 
--Jankovic_CLF_CBF_QP.m
+## `Jankovic_CLF_CBF_QP.m`
 
-Performs the same steps outlined in CLF_CBF_QP but with Jankovic's modifications, and does not contain gain_gamma and gain_alpha, instead holds jankovic_gamma(x), which computes jankovic's sign-dependent gain in the constraints.  All lie derivative functions here are independent of those defined in CLF_CBF_QP and will need to be modified independently. (I'll work on integrating these.)
-
-
-- vector_field.m
-
-Uses the functions CLF_CBF_QP.m or Jankovic_CLF_CBF_QP.m (depending on the set value of the parameter 'method') to compute the vector fields resulting from an elliptical obstacle with parameters defined by Q,q, and r as created in the file counter_example.m.
-
-the x and y ranges and their intervals may be modified with the corresponding variables at the beginning of the file.
+Performs the same steps outlined in `CLF_CBF_QP` but with [Jankovic's modifications](https://www.sciencedirect.com/science/article/abs/pii/S0005109818303509), and does not contain `gain_gamma` and `gain_alpha`, instead holds `jankovic_gamma(x)`, which computes the sign-dependent gain in the constraints given in the paper by Jankovic.  All Lie derivative functions here are independent of those defined in `CLF_CBF_QP` and would need to be modified independently.
 
 
-- plotting.m
+## `vector_field.m`
 
-Plots the results of vector fields and trajectories on a single image.  By default, the plot limits are set to the x and y ranges defined in vector_field.m.
+Uses the functions `CLF_CBF_QP.m` or `Jankovic_CLF_CBF_QP.m` (depending on the set value of the parameter `method`) to compute the vector fields resulting from an elliptical obstacle with parameters defined by Q,q, and r as created in the file counter_example.m.
+
+the $x$ and $y$ ranges and their intervals may be modified with the corresponding variables at the beginning of the file.
 
 
-This function performs the same task as CLF_CBF_QP.m but 
+## `plotting.m`
+Plots the results of vector fields and trajectories on a single image.  By default, the plot limits are set to the $x$ and $y$ ranges defined in vector_field.m.
