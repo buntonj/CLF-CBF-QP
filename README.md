@@ -20,8 +20,11 @@ The set of initial states for each trajectory desired to be run are left to be i
 
 The script then iteratively solves the differential equation (whose equations of motion are described in the function 'xdot', stored at the bottom of the script and able to be altered if desired) using ode45 to numerically integrate over each interval.
 
-After the trajectories are simulated, the vector fields are calculated with a call to 'vector_field.m', and all results are plotted with the script 'plotting.m'.
+After the trajectories are simulated, the vector fields are calculated with a call to 'vector_field.m', and all results are plotted with the script 'plotting.m'.  The results will look similar to the below plots:
 
+![lyapunovs](https://user-images.githubusercontent.com/47643825/223044250-d6b78517-80e4-4344-8f40-65db2edcd814.gif)
+![circular_obstacle_vector_field](https://user-images.githubusercontent.com/47643825/223044395-1bfaaef7-8a1d-4842-a5a3-b4422823d423.svg)
+![stretched_lyapunov_vector_field](https://user-images.githubusercontent.com/47643825/223044450-e08e6291-95bd-4c0f-8e3e-9b6eb4dea1ab.svg)
 
 ## `CLF_CBF_QP.m`
 
