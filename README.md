@@ -23,7 +23,7 @@ The script then iteratively solves the differential equation (whose equations of
 After the trajectories are simulated, the vector fields are calculated with a call to 'vector_field.m', and all results are plotted with the script 'plotting.m'.
 
 
--CLF_CBF_QP.m
+## `CLF_CBF_QP.m`
 
 This function, given the current state and the parameters Q,q,r (defined in counter_example.m) for an elliptical obstacle, will compute the optimal input according to the standard CLF-CBF quadratic program approach.  It solves this by expressing the problem as a linearly constrained quadratic program and solving it with CPLEX, which is available with an academic license.  If a different solver is desired (say CVX, for example), the problem in question is constructed as:
 
