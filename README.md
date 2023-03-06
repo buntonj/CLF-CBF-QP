@@ -41,28 +41,28 @@ In this function file, we find the functions for the safety and control lyapunov
 In particular:
 
 ### `get_lyapunov_P()`
-	This helper function defines the positive definite matrix P for all other lie derivatives of the lyapunov function.  If a modification of V(x) is desired in only this manner, express it here.
+This helper function defines the positive definite matrix P for all other lie derivatives of the lyapunov function.  If a modification of V(x) is desired in only this manner, express it here.
 
 ### `V(x)`
-	This computes the value of the lyapunov function at a given point.  By default it computes it as x*P*x', with x a row vector and P being pulled from the helper function defined above.
+This computes the value of the lyapunov function at a given point.  By default it computes it as x*P*x', with x a row vector and P being pulled from the helper function defined above.
 
 ### `LfV(x)`
-	Computes the lie derivative of V at state x along f.  Will need modified if V(x) or f is changed.
+Computes the Lie derivative of $V$ at state $x$ along $f$.  Will need modified if $V(x)$ or $f$ is changed.
 
 ### `LgV(x)`
-	computes the lie derivative of V at state x along g.  Will need modified if V(x) or g is changed.
+Computes the Lie derivative of $V$ at state $x$ along $g$.  Will need modified if $V(x)$ or $g$ is changed.
 
 ### `h(x,Q,q,r)`
-	Computes the safety function h at state x given elliptical safety border defined with ellipse parameters Q,q, and r.
+Computes the safety function $h$ at state $x$ given elliptical safety border defined with ellipse parameters $Q$, $q$, and $r$.
 
 ### `Lfh(x,Q,q,r)`
-	Computes lie derivative of safety function h with elliptical parameters Q,q, and r along f.  Will need to be modified if h or f change.
+Computes Lie derivative of safety function $h$ with elliptical parameters $Q$, $q$, and $r$ along $f$.  Will need to be modified if $h$ or $f$ change.
 
 ### `Lgh(X,q,q,r)`
-	Computes lie derivaitve of safety function h with elliptical parameters Q,q, and r along g.  Will need to be modified if h or g change.
+Computes Lie derivaitve of safety function $h$ with elliptical parameters $Q$ ,$q$, and $r$ along $g$.  Will need to be modified if $h$ or $g$ change.
 
 ### `gain_alpha` and `gain_gamma(x)`
-	Scalar K-infinity functions defining the gain on the constraint coefficients in the quadratic program.
+Scalar $\mathcal{K}_{\infty}$ functions defining the gain on the constraint coefficients in the quadratic program.
 
 
 ## `Jankovic_CLF_CBF_QP.m`
