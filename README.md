@@ -1,17 +1,14 @@
-README FILE
+# FILES CONTAINED IN THIS DIRECTORY:
 
-FILES CONTAINED IN THIS DIRECTORY:
-
-- counter_example.m
-- CLF_CBF_QP.m
-- Jankovic_CLF_CBF_QP.m
-- vector_field.m
-- plotting.m
+- `counter_example.m`
+- `CLF_CBF_QP.m`
+- `Jankovic_CLF_CBF_QP.m`
+- `vector_field.m`
+- `plotting.m`
 
 Details for each:
 
-
--counter_example.m
+## `counter_example.m`
 
 This matlab script will create, with one run, the trajectories for any number of (pre-specified) using either the standard CLF-CBF QP approach, or Jankovic's modified version depending on the value of the string 'method'. (either 'standard' or 'jankovic')
 
